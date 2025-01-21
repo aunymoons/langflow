@@ -36,7 +36,10 @@
   "remoteUser": "langflow",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
   "workspaceFolder": "/workspace",
-  "forwardPorts": [7860, 3000],
+  "forwardPorts": [
+    7860,
+    3000
+  ],
   "containerEnv": {
     "FRONTEND_START_FLAGS": "--host"
   },

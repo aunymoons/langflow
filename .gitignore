@@ -277,3 +277,8 @@ src/frontend/temp
 
 .dspy_cache/
 *.db
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

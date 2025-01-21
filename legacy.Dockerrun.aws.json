@@ -1,0 +1,78 @@
+{
+    "AWSEBDockerrunVersion": 3,
+    "containerDefinitions": [
+        {
+            "name": "langflow",
+            "image": "aunymoons/langflow:local",
+            "essential": true,
+            "memory": "512",
+            "portMappings": [
+                {
+                    "hostPort": 7860,
+                    "containerPort": 7860
+                }
+            ],
+            "environment": [
+                {
+                    "name": "LANGFLOW_DATABASE_URL",
+                    "value": "postgresql://langflow:langflow@postgres:5432/langflow"
+                }
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolume": "langflow-data",
+                    "containerPath": "/app/langflow"
+                }
+            ],
+            "links": [
+                "postgres"
+            ]
+        },
+        {
+            "name": "postgres",
+            "image": "postgres:16",
+            "essential": true,
+            "memory": "512",
+            "portMappings": [
+                {
+                    "hostPort": 5432,
+                    "containerPort": 5432
+                }
+            ],
+            "environment": [
+                {
+                    "name": "POSTGRES_USER",
+                    "value": "langflow"
+                },
+                {
+                    "name": "POSTGRES_PASSWORD",
+                    "value": "langflow"
+                },
+                {
+                    "name": "POSTGRES_DB",
+                    "value": "langflow"
+                }
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolume": "langflow-postgres",
+                    "containerPath": "/var/lib/postgresql/data"
+                }
+            ]
+        }
+    ],
+    "volumes": [
+        {
+            "name": "langflow-data",
+            "host": {
+                "sourcePath": "/var/app/langflow-data"
+            }
+        },
+        {
+            "name": "langflow-postgres",
+            "host": {
+                "sourcePath": "/var/app/langflow-postgres"
+            }
+        }
+    ]
+}
