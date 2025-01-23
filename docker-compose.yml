@@ -4,10 +4,10 @@ volumes:
 
 services:
   langflow:
-    image: langflow:local # or another version tag on https://hub.docker.com/r/langflowai/langflow 
-    build:
-      context: /
-      dockerfile: docker/build_and_push.Dockerfile
+    image: aunymoons/langflow:local # or another version tag on https://hub.docker.com/r/langflowai/langflow 
+    #build:
+    #  context: /
+    #  dockerfile: docker/build_and_push.Dockerfile
     ports:
       - "7860:7860"
     depends_on:
