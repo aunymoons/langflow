@@ -9,7 +9,7 @@ services:
     #  context: /
     #  dockerfile: docker/build_and_push.Dockerfile
     ports:
-      - "80:7860"
+      - "8080:7860"
     depends_on:
       - postgres
     environment:

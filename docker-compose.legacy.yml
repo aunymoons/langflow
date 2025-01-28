@@ -1,0 +1,41 @@
+services:
+  langflow:
+    image: aunymoons/langflow:local
+    #build:
+    #  context: /
+    #  dockerfile: docker/build_and_push.Dockerfile
+    ports:
+      - "8080:7860"
+    depends_on:
+      - postgres
+
+    environment:
+      - LANGFLOW_CONFIG_DIR=~/.langflow
+      - LANGFLOW_SAVE_DB_IN_CONFIG_DIR=true
+      - LANGFLOW_DATABASE_URL=postgresql://langflow:langflow@postgres:5432/langflow
+      - LANGFLOW_LANGCHAIN_CACHE=SQLiteCache
+      - LANGFLOW_HOST=0.0.0.0  # Changed to 0.0.0.0 for AWS compatibility
+      - LANGFLOW_WORKERS=1
+      - LANGFLOW_PORT=7860
+      - LANGFLOW_LOG_LEVEL=info
+      - LANGFLOW_LOG_FILE=/dev/stdout  # Changed to stdout for AWS logs
+      - LANGFLOW_FRONTEND_PATH=/src/frontend/build
+      - LANGFLOW_OPEN_BROWSER=false
+      - LANGFLOW_REMOVE_API_KEYS=false
+      - LANGFLOW_CACHE_TYPE=memory
+      - LANGFLOW_AUTO_LOGIN=true
+      - LANGFLOW_SUPERUSER=admin
+      - LANGFLOW_SUPERUSER_PASSWORD=Discovery1031!
+      - LANGFLOW_STORE_ENVIRONMENT_VARIABLES=false
+      - LANGFLOW_STORE_URL=https://api.langflow.store
+      - LANGFLOW_DOWNLOAD_WEBHOOK_URL=https://api.langflow.store/download
+      - LANGFLOW_LIKE_WEBHOOK_URL=https://api.langflow.store/like
+      - BACKEND_URL=http://localhost:7860/
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: langflow
+      POSTGRES_PASSWORD: langflow
+      POSTGRES_DB: langflow
+    expose:
+      - 5432
