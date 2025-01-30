@@ -1,0 +1,13 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": {
+        "Name": "aunymoons/langflow:local",
+        "Update": "true"
+    },
+    "Ports": [
+        {
+            "ContainerPort": 7860
+        }
+    ],
+    "Logging": "/var/log/langflow"
+}
